@@ -1,0 +1,17 @@
+<div>
+    <div>
+        @if (!imageUrl) 
+        {
+            <p>Porfavor suba una imagen</p>
+        }
+        @if (imageUrl) {
+            <div>
+                <img [src]="imageUrl" alt="Subir" class="image">
+            </div>
+        }
+        <input type="file" (change)="{}" accept="image/*">
+        <button (click)="{}" [disabled]="!selectedFile">
+            {{(imageUrl ? 'Imagen identificada': 'Imagen no subida')}}
+        </button>
+    </div>
+</div>

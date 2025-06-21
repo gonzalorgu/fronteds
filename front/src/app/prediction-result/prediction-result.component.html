@@ -1,0 +1,45 @@
+<div *ngIf="result" class="card fade-in" style="padding: 2rem;">
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <div [style.font-size]="'3rem'" [style.margin-bottom]="'0.5rem'">
+      <!-- Icono para la clasificación facial -->
+      <div *ngIf="result.isKnown" class="icon-known">😊</div>
+      <div *ngIf="!result.isKnown" class="icon-unknown">😕</div>
+    </div>
+    <h3 style="color: var(--neutral-800); font-weight: 600; margin-bottom: 0.5rem;">
+      Clasificación Facial
+    </h3>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <div class="classification-display">
+      <!-- Mostrar si la persona es conocida o desconocida -->
+      <span class="classification-value">{{ result.isKnown ? 'Conocida' : 'Desconocida' }}</span>
+    </div>
+    <div class="confidence-meter">
+      <div class="confidence-label">
+        Confianza: 
+        <!-- Validación para mostrar porcentaje de confianza, evitando NaN -->
+        {{ getConfidencePercentage(result.confidence) }}
+      </div>
+      <div class="confidence-bar">
+        <div 
+          class="confidence-fill" 
+          [style.width.%]="result.confidence * 100"
+          [class.high-confidence]="result.confidence >= 0.8"
+          [class.medium-confidence]="result.confidence >= 0.6 && result.confidence < 0.8"
+          [class.low-confidence]="result.confidence < 0.6"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de análisis de factores (opcional) -->
+  <div class="interpretation-section">
+    <h4 style="color: var(--neutral-700); font-weight: 600; margin-bottom: 1rem; text-align: center;">
+      🧠 Interpretación
+    </h4>
+    <div class="interpretation-text">
+      La clasificación se basó en la comparación de características faciales con las imágenes conocidas.
+    </div>
+  </div>
+</div>

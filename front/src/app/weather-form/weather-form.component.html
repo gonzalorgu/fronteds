@@ -1,0 +1,38 @@
+<div class="card" style="padding: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">📸</div>  <!-- Icono para la cámara -->
+        <h2 style="color: var(--neutral-800); font-weight: 600; margin-bottom: 0.5rem;">
+            Clasificación Facial
+        </h2>
+        <p style="color: var(--neutral-600); font-size: 0.875rem;">
+            Subir una imagen para determinar si la persona es conocida o desconocida
+        </p>
+    </div>
+
+    <form [formGroup]="imageForm" (ngSubmit)="onSubmit()" class="fade-in">
+        <div class="grid grid-2">
+            <div class="form-group">
+                <label class="form-label">
+                    📁 Imagen
+                </label>
+                <input type="file" formControlName="image" class="form-input" (change)="onFileSelected($event)" accept="image/*" />
+                <div *ngIf="imageForm.get('image')?.errors?.['required'] && imageForm.get('image')?.touched"
+                    class="text-error" style="font-size: 0.75rem; margin-top: 0.25rem;">
+                    La imagen es requerida
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+            <button type="submit" class="btn btn-primary" [disabled]="imageForm.invalid || isLoading">
+                <span *ngIf="isLoading" class="loading"></span>
+                <span *ngIf="!isLoading">🔮</span>
+                {{ isLoading ? 'Clasificando...' : 'Clasificar Imagen' }}
+            </button>
+
+            <button type="button" class="btn btn-secondary" (click)="resetForm()" [disabled]="isLoading">
+                🔄 Limpiar
+            </button>
+        </div>
+    </form>
+</div>
